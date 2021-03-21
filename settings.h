@@ -1,5 +1,6 @@
 #ifndef SETTINGS_H
 #define SETTINGS_H
+#include <string>
 
 
 class Settings
@@ -11,7 +12,7 @@ public:
     int max_up_speed_slow;
     int max_downloads;
     int max_uploads;
-    string default_down_dir;
+    std::string default_down_dir;
 
     Settings();
 };

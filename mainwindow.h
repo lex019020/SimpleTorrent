@@ -15,6 +15,31 @@ public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
 
+private slots:
+    void on_btn_start_clicked();
+
+    void on_btn_new_clicked();
+
+    void on_btn_pause_clicked();
+
+    void on_btn_slowmode_clicked();
+
+    void on_btn_shutdown_clicked();
+
+    void on_btn_settings_clicked();
+
+    void on_btn_info_clicked();
+
+    void on_btn_downloads_clicked();
+
+    void on_btn_uploads_clicked();
+
+    void on_btn_paused_clicked();
+
+    void on_btn_finished_clicked();
+
+    void on_lineEdit_textChanged(const QString &arg1);
+
 private:
     Ui::MainWindow *ui;
 };

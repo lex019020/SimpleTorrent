@@ -8,17 +8,17 @@
 class Torrent
 {
 private:
-    string src;
-    string dest;
+    std::string src;
+    std::string dest;
     int status;
 
 public:
     Torrent();
-    Torrent(string filename, string dest, vector<int> priorities, int overall_priority,
+    Torrent(std::string filename, std::string dest, std::vector<int> priorities, int overall_priority,
             bool imm_start, bool add_shutdown_task, int shutdown_type);
-    string get_filename();
-    string get_destination();
-    string get_status();
+    std::string get_filename();
+    std::string get_destination();
+    std::string get_status();
     int get_size();
     int get_downloaded();
     int get_speed();

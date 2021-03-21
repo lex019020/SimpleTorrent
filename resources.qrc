@@ -1,0 +1,16 @@
+<RCC>
+    <qresource prefix="/res">
+        <file>svg/done.svg</file>
+        <file>svg/downloads.svg</file>
+        <file>svg/info.svg</file>
+        <file>svg/new.svg</file>
+        <file>svg/pause.svg</file>
+        <file>svg/paused.svg</file>
+        <file>svg/play.svg</file>
+        <file>svg/settings.svg</file>
+        <file>svg/shutdown.svg</file>
+        <file>svg/slowmode.svg</file>
+        <file>svg/uploads.svg</file>
+        <file>svg/search.svg</file>
+    </qresource>
+</RCC>
