@@ -11,6 +11,7 @@ private:
     std::string src;
     std::string dest;
     int status;
+    // torrent handler
 
 public:
     Torrent();

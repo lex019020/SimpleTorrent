@@ -19,12 +19,14 @@ SOURCES += \
     main.cpp \
     mainwindow.cpp \
     settings.cpp \
-    torrent.cpp
+    torrent.cpp \
+    torrent_manager.cpp
 
 HEADERS += \
     mainwindow.h \
     settings.h \
-    torrent.h
+    torrent.h \
+    torrent_manager.h
 
 FORMS += \
     mainwindow.ui
