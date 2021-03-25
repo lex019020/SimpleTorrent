@@ -2,16 +2,17 @@
 #define TORRENT_MANAGER_H
 
 #include <vector>
+#include <torrent.h>
 
 class torrent_manager
 {
 private:
-    std::vector<torrent> torrents;
+    std::vector<Torrent> torrents;
 public:
 
     torrent_manager();
     bool add_torrent(Torrent& t);
-    void get_torrents(const std::vector<torrent>& torrents);
+    const std::vector<Torrent>& get_torrents();
     bool remove_torrent(int n, bool del_files);
 
 };

@@ -20,16 +20,20 @@ SOURCES += \
     mainwindow.cpp \
     settings.cpp \
     torrent.cpp \
-    torrent_manager.cpp
+    torrent_manager.cpp \
+    torrentelement.cpp
 
 HEADERS += \
+    downloader.h \
     mainwindow.h \
     settings.h \
     torrent.h \
-    torrent_manager.h
+    torrent_manager.h \
+    torrentelement.h
 
 FORMS += \
-    mainwindow.ui
+    mainwindow.ui \
+    torrentelement.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
@@ -38,3 +42,10 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 
 RESOURCES += \
     resources.qrc
+
+win32:CONFIG(release, debug|release): LIBS += -L$$PWD/../Загрузки/libtorrent-rasterbar-2.0.2/bin/gcc-9/release/cxxstd-14-iso/debug-symbols-on/threading-multi/release/ -ltorrent-rasterbar
+else:win32:CONFIG(debug, debug|release): LIBS += -L$$PWD/../Загрузки/libtorrent-rasterbar-2.0.2/bin/gcc-9/release/cxxstd-14-iso/debug-symbols-on/threading-multi/debug/ -ltorrent-rasterbar
+else:unix: LIBS += -L$$PWD/../Загрузки/libtorrent-rasterbar-2.0.2/bin/gcc-9/release/cxxstd-14-iso/debug-symbols-on/threading-multi/ -ltorrent-rasterbar
+
+INCLUDEPATH += $$PWD/../Загрузки/libtorrent-rasterbar-2.0.2/include/libtorrent
+DEPENDPATH += $$PWD/../Загрузки/libtorrent-rasterbar-2.0.2/include/libtorrent

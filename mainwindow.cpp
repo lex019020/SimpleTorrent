@@ -6,6 +6,7 @@ MainWindow::MainWindow(QWidget *parent)
     , ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
+    ui->statusbar->showMessage("Ready");
 }
 
 MainWindow::~MainWindow()
@@ -71,8 +72,10 @@ void MainWindow::on_btn_finished_clicked()
 
 void MainWindow::on_lineEdit_textChanged(const QString &arg1)
 {
-    if(arg1.size() > 0)
+    /*
+     * if(arg1.size() > 0)
         ui->lbl_pic_search->hide();
     else
         ui->lbl_pic_search->show();
+    */
 }

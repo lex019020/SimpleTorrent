@@ -16,17 +16,18 @@ private:
 public:
     Torrent();
     Torrent(std::string filename, std::string dest, std::vector<int> priorities, int overall_priority,
-            bool imm_start, bool add_shutdown_task, int shutdown_type);
-    std::string get_filename();
-    std::string get_destination();
-    std::string get_status();
-    int get_size();
-    int get_downloaded();
-    int get_speed();
+            bool imm_start);
+    std::string get_filename() const;
+    std::string get_destination() const;
+    std::string get_status() const;
+    int get_size() const;
+    int get_downloaded() const;
+    int get_speed() const;
     void start();
     void pause();
     void set_slow_mode(bool slow_mode);
     void delete_files();
+    bool operator==(const Torrent& t) const;
 
 };
 
