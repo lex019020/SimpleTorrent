@@ -1,28 +1,46 @@
 #include "torrentelement.h"
 #include "ui_torrentelement.h"
 #include <QString>
+#include <math.h>
 
-TorrentElement::TorrentElement(QWidget *parent) :
+TorrentElement::TorrentElement(Torrent &t, QWidget *parent) :
     QWidget(parent),
     ui(new Ui::TorrentElement)
 {
     ui->setupUi(this);
 }
 
-void TorrentElement::set_neme(std::string &name)
+void TorrentElement::update_data()
 {
-    ui->label_name->setText(name.c_str());
+    // TODO remove string construction somewhere
+    if(t == nullptr) return;
+
+    ui->label_name->setText(t.get_filename().c_str());
+
+
+
+    ui->label_info->setText(QString(t.get_info_string().c_str()));
 }
 
-void TorrentElement::set_status(std::string &status)
+Torrent &TorrentElement::get_object() const
 {
-    ui->label_info->setText(status.c_str());
+    return this->t;
 }
 
-void TorrentElement::set_progress(int percent)
-{
-    ui->progressBar->setValue(percent);
-}
+//void TorrentElement::set_name(std::string &name)
+//{
+//    ui->label_name->setText(name.c_str());
+//}
+
+//void TorrentElement::set_status(std::string &status)
+//{
+//    ui->label_info->setText(status.c_str());
+//}
+
+//void TorrentElement::set_progress(int percent)
+//{
+//    ui->progressBar->setValue(percent);
+//}
 
 TorrentElement::~TorrentElement()
 {

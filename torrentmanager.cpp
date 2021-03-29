@@ -1,11 +1,11 @@
-#include "torrent_manager.h"
+#include "torrentmanager.h"
 
-torrent_manager::torrent_manager()
+TorrentManager::TorrentManager()
 {
 
 }
 
-bool torrent_manager::add_torrent(Torrent &t){
+bool TorrentManager::add_torrent(Torrent &t){
     for(auto& x: this->torrents)
         if(x == t)
             return false;
@@ -15,11 +15,11 @@ bool torrent_manager::add_torrent(Torrent &t){
     return true;
 }
 
-const std::vector<Torrent>& torrent_manager::get_torrents(){
+const std::vector<Torrent>& TorrentManager::get_torrents(){
     return this->torrents;
 }
 
-bool torrent_manager::remove_torrent(int n, bool del_files){
+bool TorrentManager::remove_torrent(int n, bool del_files){
     if(this->torrents.size() <= n) return false;
     if(del_files)
         this->torrents[n].delete_files();

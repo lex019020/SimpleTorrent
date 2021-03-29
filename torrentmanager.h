@@ -4,13 +4,13 @@
 #include <vector>
 #include <torrent.h>
 
-class torrent_manager
+class TorrentManager
 {
 private:
     std::vector<Torrent> torrents;
 public:
 
-    torrent_manager();
+    TorrentManager();
     bool add_torrent(Torrent& t);
     const std::vector<Torrent>& get_torrents();
     bool remove_torrent(int n, bool del_files);

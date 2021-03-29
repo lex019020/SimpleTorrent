@@ -3,6 +3,9 @@
 
 #include <string>
 #include <vector>
+#include <qstring.h>
+#include <libtorrent/torrent_handle.hpp>
+#include <libtorrent/torrent_status.hpp>
 
 
 class Torrent
@@ -11,7 +14,7 @@ private:
     std::string src;
     std::string dest;
     int status;
-    // torrent handler
+    lt::torrent_handle& handle;
 
 public:
     Torrent();
@@ -20,13 +23,16 @@ public:
     std::string get_filename() const;
     std::string get_destination() const;
     std::string get_status() const;
-    int get_size() const;
-    int get_downloaded() const;
-    int get_speed() const;
+    std::string get_info_string() const;
+    std::int64_t get_size() const;
+    std::int64_t get_downloaded() const;
+    std::int64_t get_speed() const;
+    std::int64_t get_seeds() const;
     void start();
     void pause();
     void set_slow_mode(bool slow_mode);
     void delete_files();
+    void set_handle(lt::torrent_handle& handle);
     bool operator==(const Torrent& t) const;
 
 };
