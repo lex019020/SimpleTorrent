@@ -1,4 +1,6 @@
 #include "mainwindow.h"
+#include "torrent.h"
+#include "newtorrentdialog.h"
 #include "ui_mainwindow.h"
 
 MainWindow::MainWindow(QWidget *parent)
@@ -14,6 +16,11 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
+void MainWindow::UpdateUI()
+{
+    // TODO
+}
+
 
 void MainWindow::on_btn_start_clicked()
 {
@@ -22,7 +29,15 @@ void MainWindow::on_btn_start_clicked()
 
 void MainWindow::on_btn_new_clicked()
 {
-    // TODO
+    NewTorrentDialog dialog;
+    dialog.setModal(true);
+    if(dialog.exec() == QDialog::Accepted){
+        // TODO parameters
+        std::vector<int> v;
+        Torrent tor(dialog.GetResult().src.toStdString(), dialog.GetResult().dest.toStdString(), v, 0, true);
+        manager.add_torrent(tor);
+        UpdateUI();
+    }
 }
 
 void MainWindow::on_btn_pause_clicked()

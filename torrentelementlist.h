@@ -11,12 +11,12 @@
 class TorrentElementList : public QWidget
 {
     Q_OBJECT
-    TorrentManager& manager;
-    std::vector<TorrentElement> torrent_elements;
+    TorrentManager *manager;
+    std::vector<TorrentElement*> torrent_elements;  // is it needed?
     QVBoxLayout layout;
 public:
     explicit TorrentElementList(QWidget *parent = nullptr);
-    void set_manager(TorrentManager& manager);
+    void set_manager(TorrentManager *manager);
     void update_data();
 
 signals:

@@ -2,7 +2,8 @@ QT       += core gui
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
-CONFIG += c++11
+CONFIG += c++14
+QMAKE_CXXFLAGS += -D_GLIBCXX_USE_CXX11_ABI=0
 
 # The following define makes your compiler emit warnings if you use
 # any Qt feature that has been marked deprecated (the exact warnings
@@ -18,6 +19,7 @@ DEFINES += QT_DEPRECATED_WARNINGS
 SOURCES += \
     main.cpp \
     mainwindow.cpp \
+    newtorrentdialog.cpp \
     settings.cpp \
     torrent.cpp \
     torrentelement.cpp \
@@ -27,6 +29,7 @@ SOURCES += \
 HEADERS += \
     downloader.h \
     mainwindow.h \
+    newtorrentdialog.h \
     settings.h \
     torrent.h \
     torrentelement.h \
@@ -35,6 +38,7 @@ HEADERS += \
 
 FORMS += \
     mainwindow.ui \
+    newtorrentdialog.ui \
     torrentelement.ui
 
 # Default rules for deployment.
@@ -49,7 +53,15 @@ RESOURCES += \
 #else:win32:CONFIG(debug, debug|release): LIBS += -L$$PWD/../Загрузки/libtorrent-rasterbar-2.0.2/bin/gcc-9/release/cxxstd-14-iso/debug-symbols-on/threading-multi/debug/ -ltorrent-rasterbar
 #else:unix: LIBS += -L$$PWD/../Загрузки/libtorrent-rasterbar-2.0.2/bin/gcc-9/release/cxxstd-14-iso/debug-symbols-on/threading-multi/ -ltorrent-rasterbar
 
-INCLUDEPATH += $$PWD/../Загрузки/libtorrent-rasterbar-2.0.2/include/libtorrent
 #DEPENDPATH += $$PWD/../Загрузки/libtorrent-rasterbar-2.0.2/include/libtorrent
 
-unix|win32: LIBS += -ltorrent.21
+#INCLUDEPATH += /usr/lib/1torrent/include
+#unix|win32: LIBS += -L$$PWD/../Загрузки/libtorrent-rasterbar-2.0.2/bin/gcc-9/release/cxxstd-14-iso/debug-symbols-on/threading-multi/ -ltorrent-rasterbar
+#unix|win32: LIBS += -ltorrent
+
+win32:CONFIG(release, debug|release): LIBS += -L$$PWD/../../../usr/lib/1torrent/lib/release/ -ltorrent
+else:win32:CONFIG(debug, debug|release): LIBS += -L$$PWD/../../../usr/lib/1torrent/lib/debug/ -ltorrent
+else:unix: LIBS += -L$$PWD/../../../usr/lib/1torrent/lib/ -ltorrent
+
+INCLUDEPATH += $$PWD/../../../usr/lib/1torrent/include
+DEPENDPATH += $$PWD/../../../usr/lib/1torrent/include

@@ -13,16 +13,16 @@ TorrentElement::TorrentElement(Torrent &t, QWidget *parent) :
 void TorrentElement::update_data()
 {
     // TODO remove string construction somewhere
-    if(t == nullptr) return;
+    if(!t) return;
 
-    ui->label_name->setText(t.get_filename().c_str());
+    ui->label_name->setText(t->get_filename().c_str());
 
 
 
-    ui->label_info->setText(QString(t.get_info_string().c_str()));
+    ui->label_info->setText(QString(t->get_info_string().c_str()));
 }
 
-Torrent &TorrentElement::get_object() const
+std::shared_ptr<Torrent> TorrentElement::get_object() const
 {
     return this->t;
 }

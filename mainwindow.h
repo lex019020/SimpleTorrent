@@ -2,6 +2,7 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
+#include <torrentmanager.h>
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -11,9 +12,12 @@ class MainWindow : public QMainWindow
 {
     Q_OBJECT
 
+    TorrentManager manager;
+
 public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
+    void UpdateUI();
 
 private slots:
     void on_btn_start_clicked();

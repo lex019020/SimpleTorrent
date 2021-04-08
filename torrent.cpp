@@ -1,7 +1,7 @@
 #include "torrent.h"
 
 // return the name of a torrent status enum
-char const* state(lt::torrent_status::state_t s)
+char const* state_str(lt::torrent_status::state_t s)
 {
   switch(s) {
     case lt::torrent_status::checking_files: return "checking";
@@ -28,21 +28,31 @@ Torrent::Torrent(std::string filename, std::string dest, std::vector<int> priori
 
 bool Torrent::operator ==(const Torrent& t) const{
     return t.get_destination() == this->dest
-        && t.get_filename() == this->src;
+            && t.get_filename() == this->src;
+}
+
+bool Torrent::operator!=(const Torrent &t) const
+{
+    return !(*this == t);
 }
 
 std::string Torrent::get_filename() const{
-    return this->src;
+    if(!handle) return std::string("error");
+    return src;
 }
 
 std::string Torrent::get_destination() const{
-    return this->dest;
+    if(!handle) return std::string("error");
+    return dest;
 }
+
 
 std::string Torrent::get_status() const
 {
-    if(handle == nullptr) return std::string("no handle!");
-    return std::string(state(handle.status().state));
+    //libtorrent::torrent_handle::status()::state;
+    if(!handle) return std::string("no handle!");
+    auto st = handle->status();
+    return std::string(state_str(st.state));
 }
 
 std::string Torrent::get_info_string() const
@@ -111,26 +121,26 @@ std::string Torrent::get_info_string() const
 
 std::int64_t Torrent::get_downloaded() const
 {
-    if(handle == nullptr) return -1;
-    return handle.status().total_done;
+    if(!handle) return -1;
+    return handle->status().total_done;
 }
 
 int64_t Torrent::get_speed() const
 {
-    if(handle == nullptr) return -1;
-    return handle.status().download_rate;
+    if(!handle) return -1;
+    return handle->status().download_rate;
 }
 
 int64_t Torrent::get_seeds() const
 {
-    if(handle == nullptr) return -1;
-    return handle.status().num_seeds;
+    if(!handle) return -1;
+    return handle->status().num_seeds;
 }
 
 std::int64_t Torrent::get_size() const
 {
-    if(handle == nullptr) return -1;
-    return handle.get_torrent_info().total_size();
+    if(!handle) return -1;
+    return handle->get_torrent_info().total_size();
 }
 
 void Torrent::delete_files(){
@@ -139,5 +149,5 @@ void Torrent::delete_files(){
 
 void Torrent::set_handle(libtorrent::torrent_handle &handle)
 {
-    this->handle = handle;
+    this->handle = std::make_shared<libtorrent::torrent_handle>(handle);
 }

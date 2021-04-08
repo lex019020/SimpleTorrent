@@ -15,7 +15,7 @@ bool TorrentManager::add_torrent(Torrent &t){
     return true;
 }
 
-const std::vector<Torrent>& TorrentManager::get_torrents(){
+std::vector<Torrent>& TorrentManager::get_torrents(){
     return this->torrents;
 }
 
