@@ -2,7 +2,9 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
+#include <QTimer>
 #include <torrentmanager.h>
+#include "torrentelementlist.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -13,6 +15,8 @@ class MainWindow : public QMainWindow
     Q_OBJECT
 
     TorrentManager manager;
+    TorrentElementList list_torrent_elems;
+    QTimer *timer_update;
 
 public:
     MainWindow(QWidget *parent = nullptr);

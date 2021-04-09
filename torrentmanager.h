@@ -16,7 +16,8 @@ public:
     bool add_torrent(Torrent& t);
     std::vector<Torrent>& get_torrents();
     bool remove_torrent(int n, bool del_files);
-
+    void pause_all();
+    void resume_all();
 
 };
 

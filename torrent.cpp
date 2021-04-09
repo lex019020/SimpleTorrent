@@ -58,6 +58,7 @@ std::string Torrent::get_status() const
 std::string Torrent::get_info_string() const
 {
     QString info = get_status().c_str();
+    if(!handle) return info.toStdString();
 
     int s_total, s_down, d_speed, seeds;
     QString size_prefix = "";
@@ -135,6 +136,18 @@ int64_t Torrent::get_seeds() const
 {
     if(!handle) return -1;
     return handle->status().num_seeds;
+}
+
+void Torrent::start()
+{
+    if (!handle || !handle->is_paused()) return;
+    handle->resume();
+}
+
+void Torrent::pause()
+{
+    if (!handle || handle->is_paused()) return;
+    handle->pause();
 }
 
 std::int64_t Torrent::get_size() const

@@ -26,3 +26,15 @@ bool TorrentManager::remove_torrent(int n, bool del_files){
     this->torrents.erase(this->torrents.begin() + n);
     return true;
 }
+
+void TorrentManager::pause_all()
+{
+    for(auto& t: torrents)
+        t.pause();
+}
+
+void TorrentManager::resume_all()
+{
+    for(auto& t: torrents)
+        t.start();
+}

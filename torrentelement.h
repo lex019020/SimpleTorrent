@@ -15,7 +15,7 @@ class TorrentElement : public QWidget
     Q_OBJECT
     std::shared_ptr<Torrent> t;
 public:
-    explicit TorrentElement(Torrent& t, QWidget *parent = nullptr);
+    explicit TorrentElement(Torrent& tor, QWidget *parent = nullptr);
     void update_data();
     std::shared_ptr<Torrent> get_object() const;
     /*

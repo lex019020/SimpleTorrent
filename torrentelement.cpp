@@ -3,10 +3,11 @@
 #include <QString>
 #include <math.h>
 
-TorrentElement::TorrentElement(Torrent &t, QWidget *parent) :
+TorrentElement::TorrentElement(Torrent &tor, QWidget *parent) :
     QWidget(parent),
     ui(new Ui::TorrentElement)
 {
+    t = std::make_shared<Torrent>(tor);
     ui->setupUi(this);
 }
 

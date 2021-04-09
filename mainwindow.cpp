@@ -9,6 +9,13 @@ MainWindow::MainWindow(QWidget *parent)
 {
     ui->setupUi(this);
     ui->statusbar->showMessage("Ready");
+    list_torrent_elems.set_manager(&manager);
+
+    ui->scrollArea->setWidget(&list_torrent_elems);
+
+    timer_update = new QTimer(this);
+    connect(timer_update, &QTimer::timeout, this, QOverload<>::of(&MainWindow::UpdateUI));
+    //timer_update->start(2000);
 }
 
 MainWindow::~MainWindow()
@@ -18,13 +25,15 @@ MainWindow::~MainWindow()
 
 void MainWindow::UpdateUI()
 {
-    // TODO
+    list_torrent_elems.update_data();
+    // todo: status bar, something
 }
 
 
 void MainWindow::on_btn_start_clicked()
 {
-    // TODO
+    manager.resume_all();
+    UpdateUI();
 }
 
 void MainWindow::on_btn_new_clicked()
@@ -42,7 +51,8 @@ void MainWindow::on_btn_new_clicked()
 
 void MainWindow::on_btn_pause_clicked()
 {
-    // TODO
+    manager.pause_all();
+    UpdateUI();
 }
 
 void MainWindow::on_btn_slowmode_clicked()

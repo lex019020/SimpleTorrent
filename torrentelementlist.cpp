@@ -3,6 +3,7 @@
 TorrentElementList::TorrentElementList(QWidget *parent) : QWidget(parent)
 {
     // todo customize layout
+    layout.setAlignment(Qt::AlignTop);
     this->setLayout(layout.layout());
 }
 
@@ -25,10 +26,10 @@ void TorrentElementList::update_data()
 
     if(!list_is_okay){// rebuild list
 
-        for (auto v: torrent_elements){
+        for (auto& v: torrent_elements){
             v->deleteLater();
         }
-        for(auto x: torrent_elements)
+        for(auto& x: torrent_elements)
             delete x;
         torrent_elements.clear();
 
@@ -39,7 +40,7 @@ void TorrentElementList::update_data()
         }
     }
 
-    for(auto x: torrent_elements){ // update data
+    for(auto& x: torrent_elements){ // update data
         x->update_data();
     }
 
