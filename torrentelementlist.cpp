@@ -19,7 +19,7 @@ void TorrentElementList::update_data()
     // check torrents list equality
     bool list_is_okay = torrent_elements.size() == manager->get_torrents().size();
     for (int i = 0; i < torrent_elements.size() && list_is_okay; ++i) {
-        if(*(torrent_elements[i]->get_object()) != (Torrent)manager->get_torrents()[i]){
+        if(*(torrent_elements[i]->get_object()) != (Torrent)*(manager->get_torrents()[i])){
             list_is_okay = false;
         }
     }
@@ -33,8 +33,8 @@ void TorrentElementList::update_data()
             delete x;
         torrent_elements.clear();
 
-        for (auto& x : manager->get_torrents()) {
-            auto *el = new TorrentElement(x);
+        for (auto i = 0; i < manager->get_torrents().size(); i++) {
+            auto *el = new TorrentElement(manager->get_torrents()[i]);
             layout.addWidget(el);
             torrent_elements.push_back(el);// add to vector??
         }

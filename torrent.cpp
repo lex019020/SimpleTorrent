@@ -37,12 +37,10 @@ bool Torrent::operator!=(const Torrent &t) const
 }
 
 std::string Torrent::get_filename() const{
-    if(!handle) return std::string("error");
     return src;
 }
 
 std::string Torrent::get_destination() const{
-    if(!handle) return std::string("error");
     return dest;
 }
 
@@ -50,15 +48,15 @@ std::string Torrent::get_destination() const{
 std::string Torrent::get_status() const
 {
     //libtorrent::torrent_handle::status()::state;
-    if(!handle) return std::string("no handle!");
-    auto st = handle->status();
+    if(!handle.is_valid()) return std::string("no handle!");
+    auto st = handle.status();
     return std::string(state_str(st.state));
 }
 
 std::string Torrent::get_info_string() const
 {
     QString info = get_status().c_str();
-    if(!handle) return info.toStdString();
+    if(!handle.is_valid()) return info.toStdString();
 
     int s_total, s_down, d_speed, seeds;
     QString size_prefix = "";
@@ -66,8 +64,12 @@ std::string Torrent::get_info_string() const
     s_total = get_size();
     s_down = get_downloaded();
     d_speed = get_speed();
-    int time = (s_total - s_down) / d_speed / 60; // minutes remaining
-    seeds = 12; // TODO
+    int time;
+    if(d_speed > 0)
+        time = (s_total - s_down) / d_speed / 60; // minutes remaining
+    else
+        time = INT_MAX;
+    seeds = get_seeds(); // TODO
 
     if(s_total >= pow(2, 30))
     {
@@ -102,58 +104,67 @@ std::string Torrent::get_info_string() const
         d_speed /= pow(2, 10);
     }
 
-    info.append(QString("    %1 %2B/s"));
+    info.append(QString("    %1 %2B/s").arg(d_speed).arg(speed_prefix));
 
     if(time == 0){
         info.append("    <1 min remaining");
     }
+    else if(time == INT_MAX){
+        info.append("    calculating time...");
+    }
     else{
         if(time > 120){
             time /= 60;
-            info.append(QString("    %1 h remaining"));
+            info.append(QString("    %1 h remaining").arg(time));
         }
         else{
-            info.append(QString("    %1 min remaining"));
+            info.append(QString("    %1 min remaining").arg(time));
         }
     }
 
     return info.toStdString();
 }
 
+std::string Torrent::get_name() const
+{
+    if(!handle.is_valid()) return "error";
+    return handle.status().name;
+}
+
 std::int64_t Torrent::get_downloaded() const
 {
-    if(!handle) return -1;
-    return handle->status().total_done;
+    if(!handle.is_valid()) return -1;
+    return handle.status().total_done;
 }
 
 int64_t Torrent::get_speed() const
 {
-    if(!handle) return -1;
-    return handle->status().download_rate;
+    if(!handle.is_valid()) return -1;
+    return handle.status().download_rate;
 }
 
 int64_t Torrent::get_seeds() const
 {
-    if(!handle) return -1;
-    return handle->status().num_seeds;
+    if(!handle.is_valid()) return -1;
+    return handle.status().num_seeds;
 }
 
 void Torrent::start()
 {
-    if (!handle || !handle->is_paused()) return;
-    handle->resume();
+    if(!handle.is_valid() || !handle.is_paused()) return;
+    handle.resume();
 }
 
 void Torrent::pause()
 {
-    if (!handle || handle->is_paused()) return;
-    handle->pause();
+    if(!handle.is_valid() || handle.is_paused()) return;
+    handle.pause();
 }
 
 std::int64_t Torrent::get_size() const
 {
-    if(!handle) return -1;
-    return handle->get_torrent_info().total_size();
+    if(!handle.is_valid()) return -1;
+    return handle.get_torrent_info().total_size();
 }
 
 void Torrent::delete_files(){
@@ -162,5 +173,7 @@ void Torrent::delete_files(){
 
 void Torrent::set_handle(libtorrent::torrent_handle &handle)
 {
-    this->handle = std::make_shared<libtorrent::torrent_handle>(handle);
+    this->handle = handle;
+    //this->handle = std::make_shared<libtorrent::torrent_handle>(handle);
 }
+

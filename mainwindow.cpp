@@ -11,15 +11,19 @@ MainWindow::MainWindow(QWidget *parent)
     ui->statusbar->showMessage("Ready");
     list_torrent_elems.set_manager(&manager);
 
+    down_manager = new DownloadManager();
+    manager.set_down_manager(down_manager);
+
     ui->scrollArea->setWidget(&list_torrent_elems);
 
     timer_update = new QTimer(this);
     connect(timer_update, &QTimer::timeout, this, QOverload<>::of(&MainWindow::UpdateUI));
-    //timer_update->start(2000);
+    timer_update->start(1000);
 }
 
 MainWindow::~MainWindow()
 {
+    delete down_manager;
     delete ui;
 }
 

@@ -3,8 +3,10 @@
 
 #include <QMainWindow>
 #include <QTimer>
+#include <memory>
 #include <torrentmanager.h>
 #include "torrentelementlist.h"
+#include "downloadmanager.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -16,6 +18,7 @@ class MainWindow : public QMainWindow
 
     TorrentManager manager;
     TorrentElementList list_torrent_elems;
+    DownloadManager* down_manager;
     QTimer *timer_update;
 
 public:

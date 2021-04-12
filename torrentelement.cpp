@@ -3,27 +3,29 @@
 #include <QString>
 #include <math.h>
 
-TorrentElement::TorrentElement(Torrent &tor, QWidget *parent) :
+TorrentElement::TorrentElement(Torrent* tor, QWidget *parent) :
     QWidget(parent),
     ui(new Ui::TorrentElement)
 {
-    t = std::make_shared<Torrent>(tor);
+    t = tor;
     ui->setupUi(this);
 }
 
 void TorrentElement::update_data()
 {
-    // TODO remove string construction somewhere
-    if(!t) return;
+    if(t == nullptr) return;
 
-    ui->label_name->setText(t->get_filename().c_str());
-
-
+    ui->label_name->setText(t->get_name().c_str());
 
     ui->label_info->setText(QString(t->get_info_string().c_str()));
+
+    auto d = t->get_downloaded();
+    auto t_s = t->get_size();
+    int progress = d*1.0 / t_s*1.0 * 100;
+    ui->progressBar->setValue(progress);
 }
 
-std::shared_ptr<Torrent> TorrentElement::get_object() const
+Torrent* TorrentElement::get_object() const
 {
     return this->t;
 }

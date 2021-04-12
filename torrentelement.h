@@ -13,11 +13,11 @@ class TorrentElement;
 class TorrentElement : public QWidget
 {
     Q_OBJECT
-    std::shared_ptr<Torrent> t;
+    Torrent* t;
 public:
-    explicit TorrentElement(Torrent& tor, QWidget *parent = nullptr);
+    explicit TorrentElement(Torrent* tor, QWidget *parent = nullptr);
     void update_data();
-    std::shared_ptr<Torrent> get_object() const;
+    Torrent* get_object() const;
     /*
     void set_name(std::string& name);
     void set_status(std::string& status);

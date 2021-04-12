@@ -3,7 +3,7 @@ QT       += core gui
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
 CONFIG += c++14
-QMAKE_CXXFLAGS += -D_GLIBCXX_USE_CXX11_ABI=0
+# QMAKE_CXXFLAGS += -D_GLIBCXX_USE_CXX11_ABI=0
 
 # The following define makes your compiler emit warnings if you use
 # any Qt feature that has been marked deprecated (the exact warnings
@@ -17,6 +17,7 @@ DEFINES += QT_DEPRECATED_WARNINGS
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
+    downloadmanager.cpp \
     main.cpp \
     mainwindow.cpp \
     newtorrentdialog.cpp \
@@ -28,6 +29,7 @@ SOURCES += \
 
 HEADERS += \
     downloader.h \
+    downloadmanager.h \
     mainwindow.h \
     newtorrentdialog.h \
     settings.h \
@@ -49,19 +51,17 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 RESOURCES += \
     resources.qrc
 
-#win32:CONFIG(release, debug|release): LIBS += -L$$PWD/../Загрузки/libtorrent-rasterbar-2.0.2/bin/gcc-9/release/cxxstd-14-iso/debug-symbols-on/threading-multi/release/ -ltorrent-rasterbar
-#else:win32:CONFIG(debug, debug|release): LIBS += -L$$PWD/../Загрузки/libtorrent-rasterbar-2.0.2/bin/gcc-9/release/cxxstd-14-iso/debug-symbols-on/threading-multi/debug/ -ltorrent-rasterbar
-#else:unix: LIBS += -L$$PWD/../Загрузки/libtorrent-rasterbar-2.0.2/bin/gcc-9/release/cxxstd-14-iso/debug-symbols-on/threading-multi/ -ltorrent-rasterbar
-
-#DEPENDPATH += $$PWD/../Загрузки/libtorrent-rasterbar-2.0.2/include/libtorrent
-
-#INCLUDEPATH += /usr/lib/1torrent/include
-#unix|win32: LIBS += -L$$PWD/../Загрузки/libtorrent-rasterbar-2.0.2/bin/gcc-9/release/cxxstd-14-iso/debug-symbols-on/threading-multi/ -ltorrent-rasterbar
-#unix|win32: LIBS += -ltorrent
-
 win32:CONFIG(release, debug|release): LIBS += -L$$PWD/../../../usr/lib/1torrent/lib/release/ -ltorrent
 else:win32:CONFIG(debug, debug|release): LIBS += -L$$PWD/../../../usr/lib/1torrent/lib/debug/ -ltorrent
 else:unix: LIBS += -L$$PWD/../../../usr/lib/1torrent/lib/ -ltorrent
 
 INCLUDEPATH += $$PWD/../../../usr/lib/1torrent/include
 DEPENDPATH += $$PWD/../../../usr/lib/1torrent/include
+
+#unix|win32: LIBS += -L$$PWD/../../../usr/lib/libtor2/lib/ -ltorrent
+
+#INCLUDEPATH += $$PWD/../../../usr/lib/libtor2/include
+#DEPENDPATH += $$PWD/../../../usr/lib/libtor2/include
+
+#win32:!win32-g++: PRE_TARGETDEPS += $$PWD/../../../usr/lib/libtor2/lib/torrent.lib
+#else:unix|win32-g++: PRE_TARGETDEPS += $$PWD/../../../usr/lib/libtor2/lib/libtorrent.a

@@ -1,7 +1,10 @@
 #include "newtorrentdialog.h"
 #include "ui_newtorrentdialog.h"
 #include "QFileDialog"
+#include "QFile"
+#include "QDir"
 #include "QStorageInfo"
+#include "QMessageBox"
 
 NewTorrentDialog::NewTorrentDialog(QWidget *parent) :
     QDialog(parent),
@@ -39,12 +42,31 @@ void NewTorrentDialog::on_btn_browse_src_clicked()
 
 void NewTorrentDialog::on_btn_browse_dest_clicked()
 {
-    // todo open dialog
+    QFileDialog dialog(this);
+    dialog.setFileMode(QFileDialog::Directory);
+    dialog.setOption(QFileDialog::ShowDirsOnly, true);
+    dialog.setViewMode(QFileDialog::Detail);
+    dialog.setDirectory("/home");
+    if(dialog.exec())
+        ui->le_dest->setText(dialog.selectedFiles().at(0));
 }
 
 
 void NewTorrentDialog::on_buttonBox_accepted()
 {
     // todo check all
-    this->accept();
+    if(check_data())
+        this->accept();
+    else{
+        QMessageBox mbox_error;
+        mbox_error.setText("Error");
+        mbox_error.setInformativeText("Cannot add this torrent! Check parameters.");
+        mbox_error.setStandardButtons(QMessageBox::Ok);
+        mbox_error.exec();
+    }
+}
+
+bool NewTorrentDialog::check_data(){// TODO
+    return QFile(ui->le_source->text()).exists()
+            || QDir(ui->le_dest->text()).exists();
 }

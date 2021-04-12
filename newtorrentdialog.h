@@ -11,6 +11,7 @@ class NewTorrentDialog : public QDialog
 {
     Q_OBJECT
 
+    bool check_data();
 public:
     struct Result{
         QString src;
