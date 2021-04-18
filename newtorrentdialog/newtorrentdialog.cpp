@@ -5,7 +5,6 @@ NewTorrentDialog::NewTorrentDialog(QWidget *parent) :
     ui(new Ui::NewTorrentDialog)
 {
     ui->setupUi(this);
-    //connect(ui->buttonBox, SIGNAL(accepted()), this, SLOT(accept()));
     connect(ui->buttonBox, SIGNAL(rejected()), this, SLOT(reject()));
     QStorageInfo info = QStorageInfo::root();
     ui->label_diskfree->setText(QString("Storage free: %1 GiB")
@@ -40,11 +39,6 @@ void NewTorrentDialog::on_btn_browse_src_clicked()
 
     if(dialog.exec()){
 
-        //lt::session tmp_ses;
-        lt::add_torrent_params p;
-        p.flags &= ~lt::torrent_flags::paused;
-        p.flags &= ~lt::torrent_flags::auto_managed;
-
         lt::torrent_info info(dialog.selectedFiles().at(0).toStdString());
         if(!info.is_valid()){
             return;
@@ -62,11 +56,6 @@ void NewTorrentDialog::on_btn_browse_src_clicked()
         this->ui->tableView->setModel(model);
         this->ui->tableView->resizeColumnsToContents();
         this->ui->tableView->update();
-        //p.ti = std::make_shared<lt::torrent_info>(info);
-        //p.save_path = t.get_destination().c_str();
-        // todo priorities
-        //lt::torrent_handle handle = tmp_ses->add_torrent(p);
-        //auto v = handle.is_valid();
 
         ui->le_source->setText(dialog.selectedFiles().at(0));
 
@@ -101,9 +90,12 @@ void NewTorrentDialog::on_buttonBox_accepted()
     }
 }
 
-bool NewTorrentDialog::check_data(){// TODO
-    return QFile(ui->le_source->text()).exists()
-            || QDir(ui->le_dest->text()).exists();
+bool NewTorrentDialog::check_data(){
+    lt::torrent_info info(ui->le_source->text().toStdString());
+
+    return info.is_valid()
+            && QFile(ui->le_source->text()).exists()
+            && QDir(ui->le_dest->text()).exists();
 }
 
 void NewTorrentDialog::on_tableView_doubleClicked(const QModelIndex &index)

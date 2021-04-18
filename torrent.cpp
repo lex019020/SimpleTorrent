@@ -44,18 +44,27 @@ std::string Torrent::get_destination() const{
 }
 
 
-std::string Torrent::get_status() const
+QString Torrent::get_status() const
 {
     //libtorrent::torrent_handle::status()::state;
-    if(!handle.is_valid()) return std::string("no handle!");
+    if(!handle.is_valid()) return QString("no handle!");
     auto st = handle.status();
-    return std::string(state_str(st.state));
+    return QString(state_str(st.state));
 }
 
-std::string Torrent::get_info_string() const
+QString Torrent::get_info_string() const
 {
-    QString info = get_status().c_str();
-    if(!handle.is_valid()) return info.toStdString();
+    QString info = get_status();
+    if(!handle.is_valid()) return info;
+
+    auto st = handle.status();
+    if(st.paused){
+        info.append(" paused");
+        return info;
+    }
+
+    if(st.state != lt::torrent_status::downloading)
+        return info;
 
     int s_total, s_down, d_speed, seeds;
     QString size_prefix = "";
@@ -89,6 +98,8 @@ std::string Torrent::get_info_string() const
 
     info.append(QString("    %1 / %2 %3B").arg(s_down).arg(s_total).arg(size_prefix)); // progress label
 
+    info.append(QString("    %1 seeds").arg(get_seeds()));
+
     if(d_speed >= pow(2, 30))
     {
         speed_prefix = "Gi";
@@ -121,7 +132,7 @@ std::string Torrent::get_info_string() const
         }
     }
 
-    return info.toStdString();
+    return info;
 }
 
 std::string Torrent::get_name() const
@@ -155,7 +166,7 @@ std::vector<libtorrent::download_priority_t> Torrent::get_priorities()
 
 void Torrent::start()
 {
-    if(!handle.is_valid() || !handle.is_paused()) return;
+    if(!handle.is_valid()) return;
     handle.resume();
 }
 

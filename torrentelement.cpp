@@ -17,7 +17,7 @@ void TorrentElement::update_data()
 
     ui->label_name->setText(t->get_name().c_str());
 
-    ui->label_info->setText(QString(t->get_info_string().c_str()));
+    ui->label_info->setText(QString(t->get_info_string()));
 
     auto d = t->get_downloaded();
     auto t_s = t->get_size();

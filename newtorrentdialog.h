@@ -11,11 +11,9 @@
 #include "QStorageInfo"
 #include "QString"
 #include <libtorrent/add_torrent_params.hpp>
+#include <libtorrent/torrent_info.hpp>
 #include <libtorrent/torrent_flags.hpp>
-#include <libtorrent/torrent_handle.hpp>
-#include "libtorrent/session.hpp"
 #include <libtorrent/file_storage.hpp>
-#include <libtorrent/download_priority.hpp>
 #include "newtorrentdialog/filepriority.h"
 #include "newtorrentdialog/qtableviewmodel1.h"
 

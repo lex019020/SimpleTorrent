@@ -25,8 +25,8 @@ public:
             bool imm_start);
     std::string get_filename() const;
     std::string get_destination() const;
-    std::string get_status() const;
-    std::string get_info_string() const;
+    QString get_status() const;
+    QString get_info_string() const;
     std::string get_name() const;
     std::int64_t get_size() const;
     std::int64_t get_downloaded() const;
