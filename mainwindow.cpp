@@ -46,10 +46,19 @@ void MainWindow::on_btn_new_clicked()
     dialog.setModal(true);
     if(dialog.exec() == QDialog::Accepted){
         // TODO parameters
-        std::vector<int> v;
-        Torrent tor(dialog.GetResult().src.toStdString(), dialog.GetResult().dest.toStdString(), v, 0, true);
-        manager.add_torrent(tor);
-        UpdateUI();
+        Torrent tor(dialog.GetResult().src.toStdString(), dialog.GetResult().dest.toStdString(),
+                    dialog.GetResult().priors, 0, true);
+
+        if(manager.add_torrent(tor)){
+            UpdateUI();
+        }
+        else{
+            QMessageBox mbox_error;
+            mbox_error.setText("Error");
+            mbox_error.setInformativeText("Cannot add this torrent!");
+            mbox_error.setStandardButtons(QMessageBox::Ok);
+            mbox_error.exec();
+        }
     }
 }
 

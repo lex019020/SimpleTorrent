@@ -19,27 +19,16 @@ DownloadManager::~DownloadManager()
 bool DownloadManager::AddTorrent(Torrent &t) try
 {
     lt::add_torrent_params p;
-    //std::string const  filename = t.get_filename();
-
-    //QFile torrentfile(filename.c_str());
-    //if(!torrentfile.open(QIODevice::ReadOnly) || torrentfile.size() < 1) return false;
-
-    //QByteArray buff = torrentfile.readAll();
 
     p.flags &= ~lt::torrent_flags::paused;
     p.flags &= ~lt::torrent_flags::auto_managed;
     lt::torrent_info info(t.get_filename());
     p.ti = std::make_shared<lt::torrent_info>(info);
-    //p.ti = std::make_shared<lt::torrent_info>(buff.data(), buff.length());
-
-    printf("Before save_path");
-
     p.save_path = t.get_destination().c_str();
-     printf("After s_p");
+    p.file_priorities = t.get_priorities();
     // todo priorities
     lt::torrent_handle handle = session->add_torrent(p);
     auto v = handle.is_valid();
-    //handle.move_storage(t.get_destination(), move_flags_t::always_replace_files);
     t.set_handle(handle);
 
     return true;

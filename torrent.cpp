@@ -19,16 +19,15 @@ Torrent::Torrent()
 
 }
 
-Torrent::Torrent(std::string filename, std::string dest, std::vector<int> priorities,
+Torrent::Torrent(std::string filename, std::string dest, std::vector<lt::download_priority_t> priorities,
                  int overall_priority, bool imm_start){
     this->src = filename;
     this->dest = dest;
-    // TODO connect to Downloader
+    this->priorities = priorities;
 }
 
 bool Torrent::operator ==(const Torrent& t) const{
-    return t.get_destination() == this->dest
-            && t.get_filename() == this->src;
+    return t.handle == handle;
 }
 
 bool Torrent::operator!=(const Torrent &t) const
@@ -147,6 +146,11 @@ int64_t Torrent::get_seeds() const
 {
     if(!handle.is_valid()) return -1;
     return handle.status().num_seeds;
+}
+
+std::vector<libtorrent::download_priority_t> Torrent::get_priorities()
+{
+    return priorities;
 }
 
 void Torrent::start()

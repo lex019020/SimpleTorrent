@@ -20,7 +20,9 @@ SOURCES += \
     downloadmanager.cpp \
     main.cpp \
     mainwindow.cpp \
-    newtorrentdialog.cpp \
+    newtorrentdialog/filepriority.cpp \
+    newtorrentdialog/newtorrentdialog.cpp \
+    newtorrentdialog/qtableviewmodel1.cpp \
     settings.cpp \
     torrent.cpp \
     torrentelement.cpp \
@@ -32,6 +34,8 @@ HEADERS += \
     downloadmanager.h \
     mainwindow.h \
     newtorrentdialog.h \
+    newtorrentdialog/filepriority.h \
+    newtorrentdialog/qtableviewmodel1.h \
     settings.h \
     torrent.h \
     torrentelement.h \

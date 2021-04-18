@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>378</width>
-    <height>465</height>
+    <width>522</width>
+    <height>466</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -50,7 +50,7 @@
     <rect>
      <x>120</x>
      <y>10</y>
-     <width>191</width>
+     <width>351</width>
      <height>25</height>
     </rect>
    </property>
@@ -60,7 +60,7 @@
     <rect>
      <x>120</x>
      <y>50</y>
-     <width>191</width>
+     <width>351</width>
      <height>25</height>
     </rect>
    </property>
@@ -71,7 +71,7 @@
   <widget class="QPushButton" name="btn_browse_src">
    <property name="geometry">
     <rect>
-     <x>320</x>
+     <x>470</x>
      <y>10</y>
      <width>41</width>
      <height>25</height>
@@ -91,7 +91,7 @@
   <widget class="QPushButton" name="btn_browse_dest">
    <property name="geometry">
     <rect>
-     <x>320</x>
+     <x>470</x>
      <y>50</y>
      <width>41</width>
      <height>25</height>
@@ -110,13 +110,13 @@
   </widget>
   <widget class="QTableView" name="tableView">
    <property name="enabled">
-    <bool>false</bool>
+    <bool>true</bool>
    </property>
    <property name="geometry">
     <rect>
      <x>20</x>
      <y>90</y>
-     <width>341</width>
+     <width>481</width>
      <height>201</height>
     </rect>
    </property>
@@ -129,7 +129,7 @@
     <rect>
      <x>20</x>
      <y>300</y>
-     <width>161</width>
+     <width>171</width>
      <height>21</height>
     </rect>
    </property>
@@ -140,9 +140,9 @@
   <widget class="QLabel" name="label_diskfree">
    <property name="geometry">
     <rect>
-     <x>186</x>
+     <x>290</x>
      <y>300</y>
-     <width>171</width>
+     <width>201</width>
      <height>20</height>
     </rect>
    </property>
@@ -172,7 +172,7 @@
    </property>
    <property name="geometry">
     <rect>
-     <x>220</x>
+     <x>350</x>
      <y>330</y>
      <width>141</width>
      <height>25</height>
@@ -217,7 +217,7 @@
    </property>
    <property name="geometry">
     <rect>
-     <x>220</x>
+     <x>350</x>
      <y>390</y>
      <width>141</width>
      <height>25</height>
@@ -229,7 +229,7 @@
     <rect>
      <x>18</x>
      <y>430</y>
-     <width>341</width>
+     <width>481</width>
      <height>25</height>
     </rect>
    </property>
