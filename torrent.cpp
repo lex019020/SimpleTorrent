@@ -77,44 +77,14 @@ QString Torrent::get_info_string() const
         time = (s_total - s_down) / d_speed / 60; // minutes remaining
     else
         time = INT_MAX;
-    seeds = get_seeds(); // TODO
+    seeds = get_seeds();
 
-    if(s_total >= pow(2, 30))
-    {
-        size_prefix = "Gi";
-        s_total /= pow(2, 30);
-        s_down /= pow(2, 30);
-    }
-    else if(s_total >= pow(2, 20)){
-        size_prefix = "Mi";
-        s_total /= pow(2, 20);
-        s_down /= pow(2, 20);
-    }
-    else if(s_total >= pow(2, 10)){
-        size_prefix = "Ki";
-        s_total /= pow(2, 10);
-        s_down /= pow(2, 10);
-    }
-
-    info.append(QString("    %1 / %2 %3B").arg(s_down).arg(s_total).arg(size_prefix)); // progress label
+    info.append(QString("    %1 / %2").arg(Utils::get_size_string(s_down))
+                .arg(Utils::get_size_string(s_total))); // progress label
 
     info.append(QString("    %1 seeds").arg(get_seeds()));
 
-    if(d_speed >= pow(2, 30))
-    {
-        speed_prefix = "Gi";
-        d_speed /= pow(2, 30);
-    }
-    else if(d_speed >= pow(2, 20)){
-        speed_prefix = "Mi";
-        d_speed /= pow(2, 20);
-    }
-    else if(d_speed >= pow(2, 10)){
-        speed_prefix = "Ki";
-        d_speed /= pow(2, 10);
-    }
-
-    info.append(QString("    %1 %2B/s").arg(d_speed).arg(speed_prefix));
+    info.append(QString("    %1/s").arg(Utils::get_size_string(d_speed)));
 
     if(time == 0){
         info.append("    <1 min remaining");
@@ -189,6 +159,5 @@ void Torrent::delete_files(){
 void Torrent::set_handle(libtorrent::torrent_handle &handle)
 {
     this->handle = handle;
-    //this->handle = std::make_shared<libtorrent::torrent_handle>(handle);
 }
 

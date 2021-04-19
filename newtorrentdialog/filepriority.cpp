@@ -12,17 +12,17 @@ FilePriority::FilePriority(std::string filename, libtorrent::download_priority_t
     this->filesize = filesize;
 }
 
-QString FilePriority::getFilename()
+QString FilePriority::get_filename()
 {
     return QString(filename.c_str());
 }
 
-void FilePriority::setFilename(std::string filename)
+void FilePriority::set_filename(std::string filename)
 {
     this->filename = filename;
 }
 
-QString FilePriority::getPriority()
+QString FilePriority::get_priority()
 {
     switch (priority) {
     case lt::default_priority:
@@ -42,44 +42,27 @@ QString FilePriority::getPriority()
     }
 }
 
-void FilePriority::setPriority(libtorrent::download_priority_t priority)
+void FilePriority::set_priority(libtorrent::download_priority_t priority)
 {
     this->priority = priority;
 }
 
-QString FilePriority::getSize()
+QString FilePriority::get_size()
 {
-    auto size_tmp = filesize;
-    QString prefix = "";
-
-    if(filesize >= pow(2, 30))
-    {
-        prefix = "Gi";
-        size_tmp /= pow(2, 30);
-    }
-    else if(filesize >= pow(2, 20)){
-        prefix = "Mi";
-        size_tmp /= pow(2, 20);
-    }
-    else if(filesize >= pow(2, 10)){
-        prefix = "Ki";
-        size_tmp /= pow(2, 10);
-    }
-
-    return QString("%1 %2B").arg(size_tmp).arg(prefix);
+    return Utils::get_size_string(filesize);
 }
 
-size_t FilePriority::getSizeBytes()
+size_t FilePriority::get_size_bytes()
 {
     return filesize;
 }
 
-void FilePriority::setSize(size_t filesize)
+void FilePriority::set_size(size_t filesize)
 {
     this->filesize = filesize;
 }
 
-libtorrent::download_priority_t FilePriority::getPriorityLT()
+libtorrent::download_priority_t FilePriority::get_priority_lt()
 {
     return priority;
 }

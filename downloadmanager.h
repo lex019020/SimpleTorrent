@@ -18,10 +18,10 @@ class DownloadManager
 public:
     DownloadManager();
     ~DownloadManager();
-    bool AddTorrent(Torrent& t);
-    void SetMaxDownRate(size_t rate);
-    void SetMaxUpRate(size_t rate);
-    void RemoveTorrent(Torrent& t);
+    bool add_torrent(Torrent& t);
+    void set_max_down_rate(size_t rate);
+    void set_max_up_rate(size_t rate);
+    void remove_torrent(Torrent& t);
 
 };
 

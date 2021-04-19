@@ -6,13 +6,14 @@ NewTorrentDialog::NewTorrentDialog(QWidget *parent) :
 {
     ui->setupUi(this);
     connect(ui->buttonBox, SIGNAL(rejected()), this, SLOT(reject()));
-    QStorageInfo info = QStorageInfo::root();
-    ui->label_diskfree->setText(QString("Storage free: %1 GiB")
-                                .arg(info.bytesAvailable()/1024/1024/1024));
+
+    window()->setFixedSize(this->width(), this->height());
 
     this->ui->tableView->setSelectionBehavior(QAbstractItemView::SelectRows);
     this->ui->tableView->setSelectionMode(QAbstractItemView::SingleSelection);
     this->ui->tableView->horizontalHeader()->setStretchLastSection(true);
+
+    update_size();
 }
 
 NewTorrentDialog::~NewTorrentDialog()
@@ -24,7 +25,7 @@ NewTorrentDialog::Result NewTorrentDialog::GetResult()
 {
     std::vector<lt::download_priority_t> proirs;
     for (auto& x : *priorities) {
-        proirs.push_back(x.getPriorityLT());
+        proirs.push_back(x.get_priority_lt());
     }
     return {ui->le_source->text(), ui->le_dest->text(), proirs};
 }
@@ -46,7 +47,7 @@ void NewTorrentDialog::on_btn_browse_src_clicked()
 
         auto &storage = info.files();
         files_count = storage.num_files();
-        for(auto i = 0; i < files_count; ++i){
+        for(size_t i = 0; i < files_count; ++i){
             priorities->push_back(
                         FilePriority(static_cast<std::string>(storage.file_name(i)),
                                      lt::default_priority,
@@ -58,6 +59,7 @@ void NewTorrentDialog::on_btn_browse_src_clicked()
         this->ui->tableView->update();
 
         ui->le_source->setText(dialog.selectedFiles().at(0));
+        update_size();
 
 
     }
@@ -98,23 +100,40 @@ bool NewTorrentDialog::check_data(){
             && QDir(ui->le_dest->text()).exists();
 }
 
+void NewTorrentDialog::update_size()
+{
+    size_t total_size = 0;
+    for (FilePriority& x : *priorities) {
+        if(x.get_priority_lt() != lt::dont_download)
+            total_size += x.get_size_bytes();
+    }
+    ui->label_totalsize->setText(QString("Total size: %1")
+                                .arg(Utils::get_size_string(total_size)));
+
+    QStorageInfo info = QStorageInfo::root();
+    ui->label_diskfree->setText(QString("Storage free: %1")
+                                .arg(Utils::get_size_string(info.bytesAvailable())));
+
+}
+
 void NewTorrentDialog::on_tableView_doubleClicked(const QModelIndex &index)
 {
     FilePriority f = priorities->at(index.row());
 
-    switch (f.getPriorityLT()) {
+    switch (f.get_priority_lt()) {
     case lt::default_priority:
-        f.setPriority(lt::dont_download);
+        f.set_priority(lt::dont_download);
         break;
     case lt::dont_download:
-        f.setPriority(lt::top_priority);
+        f.set_priority(lt::top_priority);
         break;
     case lt::top_priority:
-        f.setPriority(lt::low_priority);
+        f.set_priority(lt::low_priority);
         break;
     case lt::low_priority:
-        f.setPriority(lt::default_priority);
+        f.set_priority(lt::default_priority);
         break;
     }
      model->update(index.row(), f);
+     update_size();
 }

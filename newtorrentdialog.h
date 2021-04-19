@@ -10,12 +10,14 @@
 #include "QDir"
 #include "QStorageInfo"
 #include "QString"
+#include <QLayout>
 #include <libtorrent/add_torrent_params.hpp>
 #include <libtorrent/torrent_info.hpp>
 #include <libtorrent/torrent_flags.hpp>
 #include <libtorrent/file_storage.hpp>
 #include "newtorrentdialog/filepriority.h"
 #include "newtorrentdialog/qtableviewmodel1.h"
+#include "utils.h"
 
 namespace Ui {
 class NewTorrentDialog;
@@ -26,6 +28,7 @@ class NewTorrentDialog : public QDialog
     Q_OBJECT
 
     bool check_data();
+    void update_size();
     size_t files_count;
     std::vector<FilePriority> *priorities = new std::vector<FilePriority>;
     QTableViewModel1 *model = new QTableViewModel1();

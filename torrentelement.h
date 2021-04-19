@@ -18,10 +18,6 @@ public:
     explicit TorrentElement(Torrent* tor, QWidget *parent = nullptr);
     void update_data();
     Torrent* get_object() const;
-    /*
-    void set_name(std::string& name);
-    void set_status(std::string& status);
-    void set_progress(int percent);*/
     ~TorrentElement();
 
 private:

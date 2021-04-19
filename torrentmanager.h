@@ -18,7 +18,7 @@ public:
     void set_down_manager(DownloadManager *mgr);
     bool add_torrent(Torrent t);
     std::vector<Torrent *> get_torrents();
-    bool remove_torrent(int n, bool del_files);
+    bool remove_torrent(size_t n, bool del_files);
     void pause_all();
     void resume_all();
 

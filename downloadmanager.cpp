@@ -16,7 +16,7 @@ DownloadManager::~DownloadManager()
     // TODO?
 }
 
-bool DownloadManager::AddTorrent(Torrent &t) try
+bool DownloadManager::add_torrent(Torrent &t) try
 {
     lt::add_torrent_params p;
 
@@ -26,7 +26,6 @@ bool DownloadManager::AddTorrent(Torrent &t) try
     p.ti = std::make_shared<lt::torrent_info>(info);
     p.save_path = t.get_destination().c_str();
     p.file_priorities = t.get_priorities();
-    // todo priorities
     lt::torrent_handle handle = session->add_torrent(p);
     auto v = handle.is_valid();
     t.set_handle(handle);
@@ -35,21 +34,20 @@ bool DownloadManager::AddTorrent(Torrent &t) try
 }
 catch (std::exception const& e) {
     printf(e.what());
-  //std::cout << "ERROR: " <<  << "\n";
   return false;
 }
 
-void DownloadManager::SetMaxDownRate(size_t rate)
+void DownloadManager::set_max_down_rate(size_t rate)
 {
     session->set_download_rate_limit(rate);
 }
 
-void DownloadManager::SetMaxUpRate(size_t rate)
+void DownloadManager::set_max_up_rate(size_t rate)
 {
     session->set_upload_rate_limit(rate);
 }
 
-void DownloadManager::RemoveTorrent(Torrent &t)
+void DownloadManager::remove_torrent(Torrent &t)
 {
     // TODO
 }

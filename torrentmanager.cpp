@@ -18,7 +18,7 @@ bool TorrentManager::add_torrent(Torrent t){
         if(x == t)
             return false;
 
-    manager->AddTorrent(t);
+    manager->add_torrent(t);
     this->torrents.push_back(t);
     return true;
 }
@@ -30,7 +30,7 @@ std::vector<Torrent *> TorrentManager::get_torrents(){
     return ret;
 }
 
-bool TorrentManager::remove_torrent(int n, bool del_files){
+bool TorrentManager::remove_torrent(size_t n, bool del_files){
     if(this->torrents.size() <= n) return false;
     if(del_files)
         this->torrents[n].delete_files();

@@ -45,7 +45,7 @@ void MainWindow::on_btn_new_clicked()
     NewTorrentDialog dialog;
     dialog.setModal(true);
     if(dialog.exec() == QDialog::Accepted){
-        // TODO parameters
+        // TODO more parameters
         Torrent tor(dialog.GetResult().src.toStdString(), dialog.GetResult().dest.toStdString(),
                     dialog.GetResult().priors, 0, true);
 

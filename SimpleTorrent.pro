@@ -27,10 +27,10 @@ SOURCES += \
     torrent.cpp \
     torrentelement.cpp \
     torrentelementlist.cpp \
-    torrentmanager.cpp
+    torrentmanager.cpp \
+    utils.cpp
 
 HEADERS += \
-    downloader.h \
     downloadmanager.h \
     mainwindow.h \
     newtorrentdialog.h \
@@ -40,7 +40,8 @@ HEADERS += \
     torrent.h \
     torrentelement.h \
     torrentelementlist.h \
-    torrentmanager.h
+    torrentmanager.h \
+    utils.h
 
 FORMS += \
     mainwindow.ui \

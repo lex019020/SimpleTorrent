@@ -9,6 +9,7 @@
 #include <libtorrent/torrent_status.hpp>
 #include <libtorrent/torrent_info.hpp>
 #include <libtorrent/download_priority.hpp>
+#include "utils.h"
 
 class Torrent
 {

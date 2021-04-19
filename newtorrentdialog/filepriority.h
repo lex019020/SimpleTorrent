@@ -3,7 +3,7 @@
 #include <libtorrent/download_priority.hpp>
 #include <string>
 #include <QString>
-#include <cmath>
+#include "utils.h"
 
 
 class FilePriority
@@ -14,14 +14,14 @@ class FilePriority
 public:
     FilePriority();
     FilePriority(std::string filename, lt::download_priority_t priority, size_t filesize);
-    QString getFilename();
-    void setFilename(std::string filename);
-    QString getPriority();
-    void setPriority(lt::download_priority_t priority);
-    QString getSize();
-    size_t getSizeBytes();
-    void setSize(size_t filesize);
-    lt::download_priority_t getPriorityLT();
+    QString get_filename();
+    void set_filename(std::string filename);
+    QString get_priority();
+    void set_priority(lt::download_priority_t priority);
+    QString get_size();
+    size_t get_size_bytes();
+    void set_size(size_t filesize);
+    lt::download_priority_t get_priority_lt();
 };
 
 #endif // FILENAMEPRIORITY_H

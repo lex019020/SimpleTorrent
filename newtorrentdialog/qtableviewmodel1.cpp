@@ -22,20 +22,20 @@ QVariant QTableViewModel1::data(const QModelIndex &index, int role) const
     case Qt::DisplayRole:
         switch(index.column()){
         case 0:
-            val = this->values->at(index.row()).getFilename();
+            val = this->values->at(index.row()).get_filename();
             break;
         case 1:
-            val = this->values->at(index.row()).getSize();
+            val = this->values->at(index.row()).get_size();
             break;
         case 2:
-            val = this->values->at(index.row()).getPriority();
+            val = this->values->at(index.row()).get_priority();
             break;
         }
 
         break;
     case Qt::UserRole:
         // is it needed?
-        val = this->values->at(index.row()).getFilename();
+        val = this->values->at(index.row()).get_filename();
         break;
     }
 
