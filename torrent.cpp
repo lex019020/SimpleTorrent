@@ -71,7 +71,7 @@ QString Torrent::get_info_string() const
     QString speed_prefix = "";
     s_total = get_size();
     s_down = get_downloaded();
-    d_speed = get_speed();
+    d_speed = get_down_speed();
     int time;
     if(d_speed > 0)
         time = (s_total - s_down) / d_speed / 60; // minutes remaining
@@ -117,10 +117,16 @@ std::int64_t Torrent::get_downloaded() const
     return handle.status().total_done;
 }
 
-int64_t Torrent::get_speed() const
+int64_t Torrent::get_down_speed() const
 {
     if(!handle.is_valid()) return -1;
     return handle.status().download_rate;
+}
+
+int64_t Torrent::get_up_speed() const
+{
+    if(!handle.is_valid()) return -1;
+    return handle.status().upload_rate;
 }
 
 int64_t Torrent::get_seeds() const

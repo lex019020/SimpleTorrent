@@ -21,6 +21,8 @@ public:
     bool remove_torrent(size_t n, bool del_files);
     void pause_all();
     void resume_all();
+    size_t get_down_rate();
+    size_t get_up_rate();
 
 };
 

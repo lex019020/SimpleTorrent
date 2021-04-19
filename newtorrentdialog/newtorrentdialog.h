@@ -18,6 +18,7 @@
 #include "newtorrentdialog/filepriority.h"
 #include "newtorrentdialog/qtableviewmodel1.h"
 #include "utils.h"
+#include "settings.h"
 
 namespace Ui {
 class NewTorrentDialog;

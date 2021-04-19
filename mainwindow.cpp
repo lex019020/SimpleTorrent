@@ -1,6 +1,6 @@
 #include "mainwindow.h"
 #include "torrent.h"
-#include "newtorrentdialog.h"
+#include "newtorrentdialog/newtorrentdialog.h"
 #include "ui_mainwindow.h"
 
 MainWindow::MainWindow(QWidget *parent)
@@ -10,6 +10,7 @@ MainWindow::MainWindow(QWidget *parent)
     ui->setupUi(this);
     ui->statusbar->showMessage("Ready");
     list_torrent_elems.set_manager(&manager);
+    ui->btn_slowmode->setCheckable(true);
 
     down_manager = new DownloadManager();
     manager.set_down_manager(down_manager);
@@ -30,6 +31,12 @@ MainWindow::~MainWindow()
 void MainWindow::UpdateUI()
 {
     list_torrent_elems.update_data();
+    if(manager.get_down_rate() || manager.get_up_rate())
+        ui->statusbar->showMessage(QString("Down: %1/s    Up: %2/s")
+                                   .arg(Utils::get_size_string(manager.get_down_rate()))
+                                   .arg(Utils::get_size_string(manager.get_up_rate())));
+    else
+        ui->statusbar->showMessage("Ready");
     // todo: status bar, something
 }
 
@@ -70,7 +77,8 @@ void MainWindow::on_btn_pause_clicked()
 
 void MainWindow::on_btn_slowmode_clicked()
 {
-    // TODO
+    down_manager->toggle_slowmode();
+    ui->btn_slowmode->setChecked(down_manager->is_slowmode());
 }
 
 void MainWindow::on_btn_shutdown_clicked()

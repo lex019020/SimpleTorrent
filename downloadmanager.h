@@ -5,16 +5,13 @@
 #include <memory>
 #include <string>
 #include <QFileInfo>
-//#include <libtorrent/session_handle.hpp>
-//#include <libtorrent/torrent.hpp>
-//#include "libtorrent/entry.hpp"
-//#include "libtorrent/bencode.hpp"
-//#include "libtorrent/torrent_info.hpp"
+#include "settings.h"
 
 
 class DownloadManager
 {
     lt::session* session;
+    bool slowmode = false;
 public:
     DownloadManager();
     ~DownloadManager();
@@ -22,6 +19,8 @@ public:
     void set_max_down_rate(size_t rate);
     void set_max_up_rate(size_t rate);
     void remove_torrent(Torrent& t);
+    void toggle_slowmode();
+    bool is_slowmode();
 
 };
 

@@ -36,7 +36,8 @@ void NewTorrentDialog::on_btn_browse_src_clicked()
     dialog.setFileMode(QFileDialog::ExistingFile);
     dialog.setNameFilter(tr("Torrent files (*.torrent)"));
     dialog.setViewMode(QFileDialog::Detail);
-    dialog.setDirectory("/home");
+    Settings* set = Settings::get_instance();
+    dialog.setDirectory(set->default_down_dir);
 
     if(dialog.exec()){
 
@@ -72,7 +73,8 @@ void NewTorrentDialog::on_btn_browse_dest_clicked()
     dialog.setFileMode(QFileDialog::Directory);
     dialog.setOption(QFileDialog::ShowDirsOnly, true);
     dialog.setViewMode(QFileDialog::Detail);
-    dialog.setDirectory("/home");
+    Settings* set = Settings::get_instance();
+    dialog.setDirectory(set->default_down_dir);
     if(dialog.exec())
         ui->le_dest->setText(dialog.selectedFiles().at(0));
 }

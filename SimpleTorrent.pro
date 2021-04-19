@@ -33,8 +33,8 @@ SOURCES += \
 HEADERS += \
     downloadmanager.h \
     mainwindow.h \
-    newtorrentdialog.h \
     newtorrentdialog/filepriority.h \
+    newtorrentdialog/newtorrentdialog.h \
     newtorrentdialog/qtableviewmodel1.h \
     settings.h \
     torrent.h \

@@ -51,3 +51,22 @@ void DownloadManager::remove_torrent(Torrent &t)
 {
     // TODO
 }
+
+void DownloadManager::toggle_slowmode()
+{
+    Settings* set = Settings::get_instance();
+    if(slowmode){
+        set_max_down_rate(set->max_down_speed);
+        set_max_up_rate(set->max_up_speed);
+    }
+    else{
+        set_max_down_rate(set->max_down_speed_slow);
+        set_max_up_rate(set->max_up_speed_slow);
+    }
+    slowmode = !slowmode;
+}
+
+bool DownloadManager::is_slowmode()
+{
+    return slowmode;
+}

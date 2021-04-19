@@ -31,7 +31,8 @@ public:
     std::string get_name() const;
     std::int64_t get_size() const;
     std::int64_t get_downloaded() const;
-    std::int64_t get_speed() const;
+    std::int64_t get_down_speed() const;
+    std::int64_t get_up_speed() const;
     std::int64_t get_seeds() const;
     std::vector<lt::download_priority_t> get_priorities();
     void start();

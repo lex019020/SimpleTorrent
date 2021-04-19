@@ -49,3 +49,19 @@ void TorrentManager::resume_all()
     for(auto& t: torrents)
         t.start();
 }
+
+size_t TorrentManager::get_down_rate()
+{
+    size_t downrate = 0;
+    for(auto& t: torrents)
+        downrate += t.get_down_speed();
+    return downrate;
+}
+
+size_t TorrentManager::get_up_rate()
+{
+    size_t uprate = 0;
+    for(auto& t: torrents)
+        uprate += t.get_up_speed();
+    return uprate;
+}
